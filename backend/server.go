@@ -2,16 +2,18 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net/http"
 )
 
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Welcome to my website!")
+	handler := http.HandlerFunc(func(rw http.ResponseWriter, req *http.Request) {
+		resp := []byte(`{"status": "ok"}`)
+		rw.Header().Set("Content-Type", "application/json")
+		rw.Header().Set("Content-Length", fmt.Sprint(len(resp)))
+		rw.Write(resp)
 	})
 
-	fs := http.FileServer(http.Dir("static/"))
-	http.Handle("/static/", http.StripPrefix("/static/", fs))
-
-	http.ListenAndServe(":80", nil)
+	log.Println("Server is available at http://localhost:8000")
+	log.Fatal(http.ListenAndServe(":8000", handler))
 }
