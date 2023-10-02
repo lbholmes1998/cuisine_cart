@@ -13,5 +13,7 @@ export const getServerSideProps = (async (context) => {
 export default function Status({
     serverStatus,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-    return serverStatus.status
+    return (
+        <div>Server is: {serverStatus.status}</div>
+    )
 }
