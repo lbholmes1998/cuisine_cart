@@ -2,9 +2,11 @@ package main
 
 import (
 	"crypto/subtle"
-	"fmt"
+	"io"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/handlers"
 )
 
 const (
@@ -15,7 +17,7 @@ const (
 )
 
 func welcomeMsg(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Server Working!")
+	io.WriteString(w, "Server Working!")
 }
 
 func BasicAuth(handler http.HandlerFunc, realm string) http.HandlerFunc {
@@ -34,8 +36,10 @@ func BasicAuth(handler http.HandlerFunc, realm string) http.HandlerFunc {
 }
 
 func main() {
-	http.HandleFunc("/", BasicAuth(welcomeMsg, "Please enter username and password"))
-	err := http.ListenAndServe(CONN_HOST+":"+CONN_PORT, nil)
+	// Compress and Decompress responses for faster loading
+	mux := http.NewServeMux()
+	mux.HandleFunc("/", BasicAuth(welcomeMsg, "Please enter username and password"))
+	err := http.ListenAndServe(CONN_HOST+":"+CONN_PORT, handlers.CompressHandler(mux))
 	if err != nil {
 		log.Fatal("Error starting HTTP server : ", err)
 		return
