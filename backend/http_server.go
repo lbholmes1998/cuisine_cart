@@ -4,14 +4,14 @@ import (
 	"crypto/subtle"
 	"io"
 	"log"
+	"net"
 	"net/http"
-
-	"github.com/gorilla/handlers"
 )
 
 const (
 	CONN_HOST      = "localhost"
 	CONN_PORT      = "8080"
+	CONN_TYPE      = "tcp"
 	ADMIN_USER     = "admin"
 	ADMIN_PASSWORD = "admin"
 )
@@ -37,11 +37,19 @@ func BasicAuth(handler http.HandlerFunc, realm string) http.HandlerFunc {
 
 func main() {
 	// Compress and Decompress responses for faster loading
-	mux := http.NewServeMux()
-	mux.HandleFunc("/", BasicAuth(welcomeMsg, "Please enter username and password"))
-	err := http.ListenAndServe(CONN_HOST+":"+CONN_PORT, handlers.CompressHandler(mux))
+	// mux := http.NewServeMux()
+	// mux.HandleFunc("/", BasicAuth(welcomeMsg, "Please enter username and password"))
+	listener, err := net.Listen(CONN_TYPE, CONN_HOST+":"+CONN_PORT)
 	if err != nil {
-		log.Fatal("Error starting HTTP server : ", err)
-		return
+		log.Fatal("Error starting TCP server : ", err)
+	}
+	defer listener.Close()
+	log.Println("Listening on " + CONN_HOST + ":" + CONN_PORT)
+	for {
+		conn, err := listener.Accept()
+		if err != nil {
+			log.Fatal("Error Accepting: ", err.Error())
+		}
+		log.Println(conn)
 	}
 }
