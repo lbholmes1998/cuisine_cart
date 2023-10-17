@@ -1,6 +1,7 @@
 //pages/RecipeSearch.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios'
+import { RecipeInformation } from './RecipeInformation';
 
 interface Recipe {
     id: number,
@@ -9,9 +10,14 @@ interface Recipe {
     imageType: string
 }
 
+type Props = {
+    onClick?: React.MouseEventHandler
+}
+
 const RecipeSearch: React.FC = () => {
     const [query, setQuery] = useState<string>('')
-    const [results, setResults] = useState<Recipe[]>([]);  // Expect array in format of Recipe interface. 
+    const [results, setResults] = useState<Recipe[]>([]);  // Expect array in format of Recipe interface.
+    const [selectedRecipe, setSelectedRecipe] = useState<number>()
 
     const searchRecipes = async () => {
         try {
@@ -25,6 +31,23 @@ const RecipeSearch: React.FC = () => {
         }
     }
 
+    const handleRecipeSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
+        const recipeButton: HTMLButtonElement = event.currentTarget
+        let recipeID: number = +recipeButton.value
+        setSelectedRecipe(recipeID)
+    }
+    
+    const renderRecipeInfo = () => {
+        if (selectedRecipe !== undefined) {
+            return <RecipeInformation recipeID={selectedRecipe}/>
+        }
+    }
+
+
+    // function handleRecipeSelect({ onClick }: Props) {
+    //     setSelectedRecipe()
+    // }
+
     return (
         <div>
             <h1>Recipe Search</h1>
@@ -37,9 +60,13 @@ const RecipeSearch: React.FC = () => {
             <button onClick={searchRecipes}>Search</button>
             <ul>
                 {results.map((recipe) => (
-                    <li key={recipe.id}>{recipe.title}</li>
+                    <div>
+                        <li key={recipe.id}>{recipe.title}</li>
+                        <button key={`button_${recipe.id}`} value={recipe.id} onClick={handleRecipeSelect}>Show Info</button>
+                    </div>
                 ))}
             </ul>
+            {renderRecipeInfo()}
         </div>
     );
 }
