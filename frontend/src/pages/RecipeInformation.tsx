@@ -20,7 +20,7 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
     const [results, setResults] = useState<RecipeInfo[]>([]);  // Expect array in format of Recipe interface.
     const getRecipeInfo = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/recipes/${props.recipeID}/information/`)
+            const response = await axios.get(`http://localhost:8080/api/recipes/info?id=${props.recipeID}`)
             const data = await response.data.results;  // TS expects array type, not having 'await' gives 'response' the 'promise' type which causes errors.
             console.log(data)
             setResults(data)
