@@ -89,6 +89,7 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 	// Allow CORS
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
+	// Parse spoonacular URL
 	parsedURL, err := url.Parse(spoonacularBaseURL)
 	if err != nil {
 		fmt.Println("Error parsing URL", err)
@@ -121,6 +122,8 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 
 	fmt.Println(parsedURL.String())
 
+	// TODO - FIX GETTTING RECIPE INFO
+
 	resp, err := client.R().
 		SetHeader("Accept", "application/json").
 		SetHeader("x-api-key", apiKey).
@@ -133,21 +136,6 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 		log.Fatal("Error sending request")
 	}
 }
-
-// func BasicAuth(handler http.HandlerFunc, realm string) http.HandlerFunc {
-// 	return func(w http.ResponseWriter, r *http.Request) {
-// 		user, pass, ok := r.BasicAuth()
-// 		if !ok || subtle.ConstantTimeCompare([]byte(user),
-// 			[]byte(ADMIN_USER)) != 1 || subtle.ConstantTimeCompare([]byte(pass),
-// 			[]byte(ADMIN_PASSWORD)) != 1 {
-// 			w.Header().Set("WWW-Authenticate", `Basic realm="`+realm+`"`)
-// 			w.WriteHeader(401)
-// 			w.Write([]byte("Unauthorised Access To Application. \n"))
-// 			return
-// 		}
-// 		handler(w, r)
-// 	}
-// }
 
 func main() {
 	router := mux.NewRouter()
