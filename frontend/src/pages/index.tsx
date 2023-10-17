@@ -5,8 +5,7 @@ type ServerStatus = {
 }
 
 export const getServerSideProps = (async (context) => {
-    const res = await fetch("http://127.0.0.1:8080/")
-    console.log(res)
+    const res = await fetch("http://127.0.0.1:8080/status")
     const serverStatus = await res.json()
     return {props: {serverStatus} }
 }) satisfies GetServerSideProps<{serverStatus: ServerStatus}>
