@@ -66,7 +66,7 @@ const RecipeSearch: React.FC = () => {
                     </div>
                 ))}
             </ul>
-            {renderRecipeInfo()}
+            {selectedRecipe && renderRecipeInfo()}
         </div>
     );
 }
