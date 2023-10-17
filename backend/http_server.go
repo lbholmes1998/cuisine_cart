@@ -33,6 +33,9 @@ func GetRecipes(w http.ResponseWriter, r *http.Request) {
 
 	client := resty.New()
 
+	// Allow CORS
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
 	// Parse spoonacular URL
 	parsedURL, err := url.Parse(spoonacularRecipeURL)
 	if err != nil {
@@ -71,7 +74,8 @@ func GetRecipes(w http.ResponseWriter, r *http.Request) {
 		SetHeader("x-api-key", apiKey).
 		Get(parsedURL.String())
 
-	fmt.Println(resp)
+	// Send response to frontend
+	w.Write(resp.Body())
 
 	if err != nil {
 		log.Fatal("Error sending request")
@@ -96,9 +100,9 @@ func GetRecipes(w http.ResponseWriter, r *http.Request) {
 func main() {
 	router := mux.NewRouter()
 
-	router.HandleFunc("/", statusHandler).Methods("GET")
+	router.HandleFunc("/status", statusHandler).Methods("GET")
 	// router.Path("/recipes/{queryPeramns}").HandlerFunc(GetRecipes)
-	router.HandleFunc("/recipes", GetRecipes)
+	router.HandleFunc("/api/recipes", GetRecipes)
 	err := http.ListenAndServe(CONN_HOST+":"+CONN_PORT, router)
 	if err != nil {
 		log.Fatal("Error starting HTTP server : ", err)
