@@ -68,8 +68,6 @@ func GetRecipes(w http.ResponseWriter, r *http.Request) {
 
 	parsedURL.RawQuery = newQueryString
 
-	fmt.Println(parsedURL.String())
-
 	resp, err := client.R().
 		SetHeader("Accept", "application/json").
 		SetHeader("x-api-key", apiKey).
@@ -89,18 +87,13 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 	// Allow CORS
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 
-	// Parse spoonacular URL
-	parsedURL, err := url.Parse(spoonacularBaseURL)
-	if err != nil {
-		fmt.Println("Error parsing URL", err)
-		return
-	}
-
 	// Store query params
 	queryParams := make(map[string]string)
 
 	// Existing query params
 	currentQuery := r.URL.Query()
+
+	// fmt.Println(currentQuery)
 
 	// Iterate through params and add to map
 	for k, v := range currentQuery {
@@ -110,6 +103,8 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
+	// fmt.Println(queryParams)
+
 	// Construct query string
 	var newQueryElements []string // Pretty sure this means string array
 	for k, v := range queryParams {
@@ -118,11 +113,22 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 
 	newQueryString := strings.Join(newQueryElements, "&")
 
-	parsedURL.RawQuery = newQueryString
+	recipeId := newQueryString[3:]
+
+	// Construct new request URL
+
+	recipeInfoUrl := fmt.Sprintf("https://api.spoonacular.com/recipes/%s/information", recipeId)
+
+	// Parse spoonacular URL
+	parsedURL, err := url.Parse(recipeInfoUrl)
+	if err != nil {
+		fmt.Println("Error parsing URL", err)
+		return
+	}
 
 	fmt.Println(parsedURL.String())
 
-	// TODO - FIX GETTTING RECIPE INFO
+	// TODO - FIX GETTING RECIPE INFO
 
 	resp, err := client.R().
 		SetHeader("Accept", "application/json").
@@ -130,7 +136,8 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 		Get(parsedURL.String())
 
 	// Send response to frontend
-	w.Write(resp.Body())
+	fmt.Println(resp)    // This shows response
+	w.Write(resp.Body()) // This does not - Look into it
 
 	if err != nil {
 		log.Fatal("Error sending request")
