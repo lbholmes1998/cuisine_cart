@@ -93,8 +93,6 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 	// Existing query params
 	currentQuery := r.URL.Query()
 
-	// fmt.Println(currentQuery)
-
 	// Iterate through params and add to map
 	for k, v := range currentQuery {
 		if len(v) > 0 {
@@ -102,8 +100,6 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 			queryParams[k] = v[0]
 		}
 	}
-
-	// fmt.Println(queryParams)
 
 	// Construct query string
 	var newQueryElements []string // Pretty sure this means string array
@@ -126,17 +122,12 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println(parsedURL.String())
-
-	// TODO - FIX GETTING RECIPE INFO
-
 	resp, err := client.R().
 		SetHeader("Accept", "application/json").
 		SetHeader("x-api-key", apiKey).
 		Get(parsedURL.String())
 
 	// Send response to frontend
-	fmt.Println(resp)    // This shows response
 	w.Write(resp.Body()) // This does not - Look into it
 
 	if err != nil {

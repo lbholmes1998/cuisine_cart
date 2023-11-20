@@ -1,7 +1,7 @@
 //pages/RecipeSearch.tsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
-import { RecipeInformation } from './RecipeInformation';
+import RecipeInformation from './RecipeInformation';
 
 interface Recipe {
     id: number,
