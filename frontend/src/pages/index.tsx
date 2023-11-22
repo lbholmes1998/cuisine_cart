@@ -1,4 +1,5 @@
 import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import RootLayout from '../app/Layout'
 
 type ServerStatus = {
     status: string
@@ -14,6 +15,9 @@ export default function Status({
     serverStatus,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
     return (
-        <div>Server is: {serverStatus.status}</div>
+        <RootLayout>
+            <h1>Server is: {serverStatus.status}</h1>
+            <p>Go to <a href="/RecipeSearch">Recipe Search</a></p>
+        </RootLayout>
     )
 }

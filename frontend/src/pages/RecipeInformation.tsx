@@ -1,6 +1,7 @@
 //pages/RecipeInformation.tsx
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import RootLayout from '@/app/Layout';
 
 // PASS RECIPE ID FROM RECIPESEARCH PAGE AS PROPS
 
@@ -51,7 +52,7 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
     }, [])
 
     if (recipeInfo !== 'null') return (
-        <div>
+        <RootLayout>
             <h1>Recipe Info - {`${recipeInfo.title}`}</h1>
 
             <div>
@@ -66,7 +67,7 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
                 <p>{`${recipeInfo.instructions}`}</p>
             </div>
 
-        </div>
+        </RootLayout>
     )
 }
 

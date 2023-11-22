@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import RecipeInformation from './RecipeInformation';
+import RootLayout from '@/app/Layout';
 
 interface Recipe {
     id: number,
@@ -49,25 +50,25 @@ const RecipeSearch: React.FC = () => {
     // }
 
     return (
-        <div>
-            <h1>Recipe Search</h1>
-            <input
-                type="text"
-                placeholder="Enter Search Query"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-            />
-            <button onClick={searchRecipes}>Search</button>
-            <ul>
-                {results.map((recipe) => (
-                    <div>
-                        <li key={recipe.id}>{recipe.title}</li>
-                        <button key={`button_${recipe.id}`} value={recipe.id} onClick={handleRecipeSelect}>Show Info</button>
-                    </div>
-                ))}
-            </ul>
-            {selectedRecipe && renderRecipeInfo()}
-        </div>
+        <RootLayout>
+                <h1 className="bg-red-500">Recipe Search</h1>
+                <input
+                    type="text"
+                    placeholder="Enter Search Query"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
+                <button onClick={searchRecipes}>Search</button>
+                <ul>
+                    {results.map((recipe) => (
+                        <div>
+                            <li key={recipe.id}>{recipe.title}</li>
+                            <button key={`button_${recipe.id}`} value={recipe.id} onClick={handleRecipeSelect}>Show Info</button>
+                        </div>
+                    ))}
+                </ul>
+                {selectedRecipe && renderRecipeInfo()}
+        </RootLayout>
     );
 }
 
