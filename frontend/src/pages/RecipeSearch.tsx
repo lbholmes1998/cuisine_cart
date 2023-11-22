@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import RecipeInformation from './RecipeInformation';
 import RootLayout from '@/app/Layout';
+import Modal from '@/components/modal';
 
 interface Recipe {
     id: number,
@@ -19,6 +20,7 @@ const RecipeSearch: React.FC = () => {
     const [query, setQuery] = useState<string>('')
     const [results, setResults] = useState<Recipe[]>([]);  // Expect array in format of Recipe interface.
     const [selectedRecipe, setSelectedRecipe] = useState<number>()
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const searchRecipes = async () => {
         try {
@@ -51,23 +53,29 @@ const RecipeSearch: React.FC = () => {
 
     return (
         <RootLayout>
-                <h1 className="bg-red-500">Recipe Search</h1>
-                <input
-                    type="text"
-                    placeholder="Enter Search Query"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                />
-                <button onClick={searchRecipes}>Search</button>
+            <div className='container mx-auto px-4 pt-3 bg-slate-200'>
+                <h1 className="bg-slate-300 text-center">Recipe Search</h1>
+                <div className='py-6'>
+                    <input
+                        type="text"
+                        placeholder="Meal or Recipe"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                    />
+                    <button className='px-3 py-3' onClick={searchRecipes}>Search</button>
+                </div>
                 <ul>
                     {results.map((recipe) => (
-                        <div>
-                            <li key={recipe.id}>{recipe.title}</li>
-                            <button key={`button_${recipe.id}`} value={recipe.id} onClick={handleRecipeSelect}>Show Info</button>
+                        <div className='py-2'>
+                            <div className='bg-slate-300 max-w-xs px-1 py-1 rounded'>
+                                <li key={recipe.id}>{recipe.title}</li>
+                                <button className='border-solid border-2 border-slate-700 rounded' key={`button_${recipe.id}`} value={recipe.id} onClick={handleRecipeSelect}>See Recipe Info</button>
+                            </div>
                         </div>
                     ))}
+                    {selectedRecipe && <Modal setIsOpen={setIsOpen} props={renderRecipeInfo()}/>}
                 </ul>
-                {selectedRecipe && renderRecipeInfo()}
+            </div>
         </RootLayout>
     );
 }
