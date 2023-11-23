@@ -20,13 +20,13 @@ const RecipeSearch: React.FC = () => {
     const [query, setQuery] = useState<string>('')
     const [results, setResults] = useState<Recipe[]>([]);  // Expect array in format of Recipe interface.
     const [selectedRecipe, setSelectedRecipe] = useState<number>()
+    const [recipeTitle, setRecipeTitle] = useState<string>()
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const searchRecipes = async () => {
         try {
             const response = await axios.get(`http://localhost:8080/api/recipes?query=${query}`)
             const data: Recipe[] = await response.data.results;  // TS expects array type, not having 'await' gives 'response' the 'promise' type which causes errors.
-            console.log(data)
             setResults(data)
 
         } catch (error) {
@@ -34,15 +34,19 @@ const RecipeSearch: React.FC = () => {
         }
     }
 
+
+
     const handleRecipeSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
         const recipeButton: HTMLButtonElement = event.currentTarget
         let recipeID: number = +recipeButton.value
+        setIsOpen(true)
         setSelectedRecipe(recipeID)
+        setRecipeTitle(recipeButton.id)
     }
-    
+
     const renderRecipeInfo = () => {
         if (selectedRecipe !== undefined) {
-            return <RecipeInformation recipeID={selectedRecipe}/>
+            return <RecipeInformation recipeID={selectedRecipe} />
         }
     }
 
@@ -69,12 +73,12 @@ const RecipeSearch: React.FC = () => {
                         <div className='py-2'>
                             <div className='bg-slate-300 max-w-xs px-1 py-1 rounded'>
                                 <li key={recipe.id}>{recipe.title}</li>
-                                <button className='border-solid border-2 border-slate-700 rounded' key={`button_${recipe.id}`} value={recipe.id} onClick={handleRecipeSelect}>See Recipe Info</button>
+                                <button className='border-solid border-2 border-slate-700 rounded' key={`button_${recipe.id}`} id={recipe.title} value={recipe.id} onClick={handleRecipeSelect}>See Recipe Info</button>
                             </div>
                         </div>
                     ))}
-                    {selectedRecipe && <Modal setIsOpen={setIsOpen} props={renderRecipeInfo()}/>}
                 </ul>
+                {isOpen && <Modal setIsOpen={setIsOpen} props={{ recipeTitle: recipeTitle, recipeContent: renderRecipeInfo() }} />}
             </div>
         </RootLayout>
     );

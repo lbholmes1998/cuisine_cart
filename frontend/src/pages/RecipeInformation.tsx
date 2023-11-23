@@ -53,8 +53,6 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
 
     if (recipeInfo !== 'null') return (
         <RootLayout>
-            <h1>Recipe Info - {`${recipeInfo.title}`}</h1>
-
             <div>
                 <h3>Ingredients</h3>
                 {recipeInfo.extendedIngredients.map((ingredient: any) =>
