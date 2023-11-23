@@ -7,7 +7,7 @@ const Modal = ({ setIsOpen, props }: { setIsOpen: any; props: any }) => {
         <RootLayout>
             <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
 
-                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+                <div className="fixed inset-0 backdrop-blur-sm"></div>
 
                 <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
                     <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
@@ -15,7 +15,7 @@ const Modal = ({ setIsOpen, props }: { setIsOpen: any; props: any }) => {
                             <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                                 <div className="sm:flex sm:items-start">
                                     <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                                        <h3 className="text-base font-semibold leading-6 text-gray-900" id="modal-title">{props.recipeTitle} - Recipe Info</h3>
+                                        <h3 className="rounded-lg text-2xl text-center font-semibold text-gray-900 bg-gradient-to-r from-slate-100" id="modal-title">{props.recipeTitle}</h3>
                                         <div className="mt-2">
                                             <p className="text-sm text-gray-500">{props.recipeContent}</p>
                                         </div>

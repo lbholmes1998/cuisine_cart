@@ -54,15 +54,15 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
     if (recipeInfo !== 'null') return (
         <RootLayout>
             <div>
-                <h3>Ingredients</h3>
+                <h1 className='text-xl font-bold mb-3'>Ingredients</h1>
                 {recipeInfo.extendedIngredients.map((ingredient: any) =>
-                    <ul>
-                        <li>{ingredient.name}</li>
-                        <p>{ingredient.measures.metric.amount}: {ingredient.measures.metric.unitLong}</p>
-                    </ul>
+                    <div>
+                        <h1 className='text-base font-semibold pb-1'>{ingredient.name}</h1>
+                        <p className='mb-2'>{ingredient.measures.metric.amount}: {ingredient.measures.metric.unitLong}</p>
+                    </div>
                 )}
-                <h3>Instructions</h3>
-                <p>{`${recipeInfo.instructions}`}</p>
+                <h1 className='pt-3 text-xl font-bold mb-3'>Instructions</h1>
+                {recipeInfo.instructions}
             </div>
 
         </RootLayout>
