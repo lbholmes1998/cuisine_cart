@@ -1,7 +1,7 @@
 //pages/RecipeInformation.tsx
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import RootLayout from '@/app/Layout';
+import RootLayout from '@/app/layout';
 
 // PASS RECIPE ID FROM RECIPESEARCH PAGE AS PROPS
 
