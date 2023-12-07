@@ -1,3 +1,9 @@
+import RootLayout from '@/app/Layout';
+
 export default function About() {
-    return <div>About</div>
+    return (
+        <RootLayout>
+            <div>About</div>
+        </RootLayout>
+    )
 }
