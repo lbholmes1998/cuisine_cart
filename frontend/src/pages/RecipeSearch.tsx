@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import RecipeInformation from './RecipeInformation';
 import RootLayout from '@/app/Layout';
-import Modal from '@/components/modal';
+import Modal from '@/components/Modal';
 import Image from 'next/image'
 
 interface Recipe {
@@ -58,41 +58,42 @@ const RecipeSearch: React.FC = () => {
 
     return (
         <RootLayout>
-            <div className='container mx-auto px-4 py-3 bg-slate-200'>
-                
-                <h1 className="bg-slate-300 text-center text-2xl">Recipe Search</h1>
-                
-                    <div className='flex pt-5'>
-                        <input
-                            className='px-1 rounded-sm shadow-md'
-                            type="text"
-                            placeholder="Meal or recipe name"
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
-                        />
-                        <button className='ml-5 mt-1 justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto' onClick={searchRecipes}>Search</button>
-                    </div>
-                    
 
-                    <div className='grid grid-cols-3' id='recipeCards'>
-                        {results.map((recipe) => (
-                            <div className='mx-auto py-5'>
-                                <div className='w-80 h-96 bg-slate-300 px-1 py-2 rounded-md'>
-                                    <h1 className={'py-1 text-xl text-center'} key={recipe.id}>{recipe.title}</h1>
-                                    <Image
-                                        className='py-4 mx-auto'
-                                        src={recipe.image}
-                                        width={200}
-                                        height={200}
-                                        alt="Picture of recipe"
-                                    />
-                                    <p className='px-2 py-2'>Recipie Summary will go here</p>
-                                    <button className='mx-auto justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50' key={`button_${recipe.id}`} id={recipe.title} value={recipe.id} onClick={handleRecipeSelect}>See Recipe Info</button>
+            <div className="container xl min-h-full m-auto">
+                <div className="flex items-end justify-center p-4 text-center">
+                    <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all p-8 min-w-full">
+                        <h1 className="bg-slate-100 max-w-sm text-center text-2xl mx-auto">Recipe Search</h1>
+
+                        <div id='search' className='flex justify-center pt-5'>
+                            <input
+                                className='px-1 rounded-sm shadow-md'
+                                type="text"
+                                placeholder="Meal or recipe name"
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
+                            />
+                            <button className='ml-5 mt-1 shadow-sm justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto' onClick={searchRecipes}>Search</button>
+                        </div>
+                        <div className='grid grid-cols-3' id='recipeCards'>
+                            {results.map((recipe) => (
+                                <div className='mx-auto py-5'>
+                                    <div className='w-80 h-96 bg-slate-200 px-1 py-2 rounded-md'>
+                                        <h1 className={'py-1 text-xl text-center'} key={recipe.id}>{recipe.title}</h1>
+                                        <Image
+                                            className='py-4 mx-auto w-auto'
+                                            src={recipe.image}
+                                            width={200}
+                                            height={200}
+                                            alt="Picture of recipe"
+                                        />
+                                        <p className='px-2 py-2'>Recipie Summary will go here</p>
+                                        <button className='mx-auto justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50' key={`button_${recipe.id}`} id={recipe.title} value={recipe.id} onClick={handleRecipeSelect}>See Recipe Info</button>
+                                    </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
                     </div>
-
+                </div>
                 {isOpen && <Modal setIsOpen={setIsOpen} props={{ recipeTitle: recipeTitle, recipeContent: renderRecipeInfo() }} />}
             </div>
         </RootLayout>
