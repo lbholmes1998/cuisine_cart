@@ -1,4 +1,4 @@
-import RootLayout from '@/app/Layout';
+import RootLayout from '@/app/layout';
 
 export default function About() {
     return (

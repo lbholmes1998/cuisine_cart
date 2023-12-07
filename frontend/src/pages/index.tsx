@@ -1,5 +1,5 @@
 import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
-import RootLayout from '../app/Layout'
+import RootLayout from '../app/layout'
 
 type ServerStatus = {
     status: string

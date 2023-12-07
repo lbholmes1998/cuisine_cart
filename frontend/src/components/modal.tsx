@@ -1,5 +1,5 @@
 import React from "react";
-import RootLayout from "@/app/Layout";
+import RootLayout from "@/app/layout";
 
 const Modal = ({ setIsOpen, props }: { setIsOpen: any; props: any }) => {
 

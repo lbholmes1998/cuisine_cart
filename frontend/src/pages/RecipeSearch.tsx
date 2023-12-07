@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios'
 import RecipeInformation from './RecipeInformation';
-import RootLayout from '@/app/Layout';
+import RootLayout from '@/app/layout';
 import Modal from '@/components/Modal';
 import Image from 'next/image'
 
