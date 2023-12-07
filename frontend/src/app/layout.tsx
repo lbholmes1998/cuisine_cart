@@ -1,3 +1,4 @@
+import Navbar from '@/app/Navbar'
 import './globals.css';
  
 export default function RootLayout({
@@ -6,6 +7,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-      <div>{children}</div>
+    <>
+      <Navbar/>
+      <main>{children}</main>
+    </>
   );
 }
