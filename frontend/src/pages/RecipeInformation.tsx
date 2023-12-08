@@ -19,6 +19,8 @@ interface IngredientItems {
 
 interface RecipeInfo {
     id: string,
+    aggregateLikes: number,
+    diets: string,
     title: string,
     image: string,
     servings: number,
@@ -52,8 +54,9 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
     }, [])
 
     if (recipeInfo !== 'null') return (
-        <RootLayout>
             <div>
+                <h2 className='font-bold mb-3'>No of likes: {recipeInfo.aggregateLikes}</h2>
+                <h2 className='font-bold mb-3'>Diet/s: {recipeInfo.diets}</h2>
                 <h1 className='text-xl font-bold mb-3'>Ingredients</h1>
                 {recipeInfo.extendedIngredients.map((ingredient: any) =>
                     <div>
@@ -64,8 +67,6 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
                 <h1 className='pt-3 text-xl font-bold mb-3'>Instructions</h1>
                 {recipeInfo.instructions}
             </div>
-
-        </RootLayout>
     )
 }
 
