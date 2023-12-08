@@ -1,23 +1,19 @@
-import type { InferGetServerSidePropsType, GetServerSideProps } from 'next'
+import type {  NextPage } from 'next'
+import Head from 'next/head'
 import RootLayout from '../app/layout'
 
-type ServerStatus = {
-    status: string
-}
 
-export const getServerSideProps = (async (context) => {
-    const res = await fetch("http://127.0.0.1:8080/status")
-    const serverStatus = await res.json()
-    return {props: {serverStatus} }
-}) satisfies GetServerSideProps<{serverStatus: ServerStatus}>
-
-export default function Status({
-    serverStatus,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function NextPage() {
     return (
         <RootLayout>
-            <h1>Server is: {serverStatus.status}</h1>
-            <p>Go to <a href="/RecipeSearch">Recipe Search</a></p>
+            <Head>
+                <title>Home</title>
+                <meta name="description" content="Cuisine Cart Static page" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main>
+                <h1>Welcome</h1>
+            </main>
         </RootLayout>
     )
 }
