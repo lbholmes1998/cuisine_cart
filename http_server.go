@@ -1,11 +1,14 @@
 package main
 
 import (
+	"embed"
 	"fmt"
+	"io/fs"
 	"log"
 	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/go-resty/resty/v2"
 	"github.com/gorilla/mux"
@@ -21,6 +24,13 @@ const (
 const spoonacularBaseURL = "https://api.spoonacular.com/recipes"
 const spoonacularRecipeURL = "https://api.spoonacular.com/recipes/complexSearch"
 const apiKey = "822b0382280a46eab7b8e285da8cbfee"
+
+//go:embed frontend/*
+//go:embed frontend/dist/_next
+//go:embed frontend/dist/_next/static/chunks/pages/*.js
+//go:embed frontend/dist/_next/static/*/*.js
+
+var nextFS embed.FS
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
 	// vars := mux.Vars(r)
@@ -136,16 +146,31 @@ func RecipeInfo(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	router := mux.NewRouter()
 
+	// Serve static Next.JS app
+	router := mux.NewRouter()
+	distFS, fsErr := fs.Sub(nextFS, "frontend/dist")
+	if fsErr != nil {
+		log.Fatal(fsErr)
+	}
+	router.PathPrefix("/").Handler(http.FileServer(http.FS(distFS)))
+
+	// Recipe API routes routes
 	router.HandleFunc("/status", statusHandler).Methods("GET")
 	// router.Path("/recipes/{queryPeramns}").HandlerFunc(GetRecipes)
 	router.HandleFunc("/api/recipes", GetRecipes)
 	router.HandleFunc("/api/recipes/info", RecipeInfo)
 
-	err := http.ListenAndServe(CONN_HOST+":"+CONN_PORT, router)
-	if err != nil {
-		log.Fatal("Error starting HTTP server : ", err)
-		return
+	log.Println("Starting HTTP server at http://localhost:8080 ...")
+
+	srv := &http.Server{
+		Handler: router,
+		Addr:    "127.0.0.1:8080",
+		// Good practice: enforce timeouts for servers you create!
+		WriteTimeout: 15 * time.Second,
+		ReadTimeout:  15 * time.Second,
 	}
+
+	log.Fatal(srv.ListenAndServe())
+
 }
