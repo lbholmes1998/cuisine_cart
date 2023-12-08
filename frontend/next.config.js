@@ -9,11 +9,9 @@ const nextConfig = {
             pathname: '/recipeImages/**',
           },
         ],
-        unoptimized: true
       },
       trailingSlash: true,
-      distDir: 'dist',
-      output: "export",
+      distDir: 'dist'
 }
 
 module.exports = nextConfig 

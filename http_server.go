@@ -1,9 +1,7 @@
 package main
 
 import (
-	"embed"
 	"fmt"
-	"io/fs"
 	"log"
 	"net/http"
 	"net/url"
@@ -24,13 +22,6 @@ const (
 const spoonacularBaseURL = "https://api.spoonacular.com/recipes"
 const spoonacularRecipeURL = "https://api.spoonacular.com/recipes/complexSearch"
 const apiKey = "822b0382280a46eab7b8e285da8cbfee"
-
-//go:embed frontend/*
-//go:embed frontend/dist/_next
-//go:embed frontend/dist/_next/static/chunks/pages/*.js
-//go:embed frontend/dist/_next/static/*/*.js
-
-var nextFS embed.FS
 
 func statusHandler(w http.ResponseWriter, r *http.Request) {
 	// vars := mux.Vars(r)
@@ -149,11 +140,11 @@ func main() {
 
 	// Serve static Next.JS app
 	router := mux.NewRouter()
-	distFS, fsErr := fs.Sub(nextFS, "frontend/dist")
-	if fsErr != nil {
-		log.Fatal(fsErr)
-	}
-	router.PathPrefix("/").Handler(http.FileServer(http.FS(distFS)))
+	// distFS, fsErr := fs.Sub(nextFS, "frontend/dist")
+	// if fsErr != nil {
+	// 	log.Fatal(fsErr)
+	// }
+	// router.PathPrefix("/").Handler(http.FileServer(http.FS(distFS)))
 
 	// Recipe API routes routes
 	router.HandleFunc("/status", statusHandler).Methods("GET")
