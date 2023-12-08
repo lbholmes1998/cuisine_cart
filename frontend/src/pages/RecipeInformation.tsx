@@ -59,7 +59,7 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
                 <h2 className='font-bold mb-3'>Diet/s: {recipeInfo.diets}</h2>
                 <h1 className='text-xl font-bold mb-3'>Ingredients</h1>
                 {recipeInfo.extendedIngredients.map((ingredient: any) =>
-                    <div>
+                    <div key={ingredient.name}>
                         <h1 className='text-base font-semibold pb-1'>{ingredient.name}</h1>
                         <p className='mb-2'>{ingredient.measures.metric.amount}: {ingredient.measures.metric.unitLong}</p>
                     </div>
