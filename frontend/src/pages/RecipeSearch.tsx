@@ -5,12 +5,17 @@ import RecipeInformation from './RecipeInformation';
 import RootLayout from '@/app/layout';
 import Modal from '@/components/Modal';
 import Image from 'next/image'
+import test from 'node:test';
 
 interface Recipe {
     id: number,
     title: string,
     image: string,
     imageType: string
+}
+
+interface TestResponse {
+    message: string
 }
 
 type Props = {
@@ -24,18 +29,15 @@ const RecipeSearch: React.FC = () => {
     const [recipeTitle, setRecipeTitle] = useState<string>()
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
+
     const searchRecipes = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/recipes?query=${query}`)
-            const data: Recipe[] = await response.data.results;  // TS expects array type, not having 'await' gives 'response' the 'promise' type which causes errors.
-            setResults(data)
-
+            const response = await axios.get(`/api/search/${query}`)
+            setResults(response.data.data)
         } catch (error) {
             console.error(`Error search for recipe: ${error}`)
         }
     }
-
-
 
     const handleRecipeSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
         const recipeButton: HTMLButtonElement = event.currentTarget
