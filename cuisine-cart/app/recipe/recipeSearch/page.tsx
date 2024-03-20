@@ -76,8 +76,6 @@ const RecipeSearch: React.FC = () => {
     }
 
     return (
-        // <RootLayout>
-
         <div className="container xl min-h-full m-auto">
             <div className="flex items-end justify-center p-4 text-center">
                 <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all p-8 min-w-full">
@@ -91,7 +89,7 @@ const RecipeSearch: React.FC = () => {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                         />
-                        <button className='ml-5 mt-1 shadow-sm justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto' onClick={searchRecipes}>Search</button>
+                        <button className='ml-5 mt-1 justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto' onClick={searchRecipes}>Search</button>
                     </div>
                     <div className='grid grid-cols-3' id='recipeCards'>
                         {results.map((recipe) => (
@@ -115,7 +113,6 @@ const RecipeSearch: React.FC = () => {
             </div>
             {isOpen && <Modal setIsOpen={setIsOpen} props={{ recipeTitle: recipeTitle, recipeContent: renderRecipeInfo() }} />}
         </div>
-        // </RootLayout>
     );
 }
 
