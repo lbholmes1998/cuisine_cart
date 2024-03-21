@@ -42,6 +42,8 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
     useEffect(() => {
         const getRecipeInfo = async () => {
             try {
+
+                // TODO - Abstract API code
                 const apiKey: string | undefined = process.env.NEXT_PUBLIC_SPOONACULAR_KEY;
                 if (!apiKey) {
                     throw new Error('Spoonacular API key is not defined in environment variables.');

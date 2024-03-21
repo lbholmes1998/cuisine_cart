@@ -41,6 +41,8 @@ const RecipeSearch: React.FC = () => {
 
     const searchRecipes = async () => {
         try {
+            
+            // TODO - Abstract API code
             const apiKey: string | undefined = process.env.NEXT_PUBLIC_SPOONACULAR_KEY;
             if (!apiKey) {
                 throw new Error('Spoonacular API key is not defined in environment variables.');
