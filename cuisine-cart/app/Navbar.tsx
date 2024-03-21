@@ -1,34 +1,30 @@
 import React from "react";
 import Link from "next/link";
+import RecipeSearch from "./components/RecipeSearch";
 
 const Navbar = () => {
 
     return (
-        <>
-            <div className="w-full h-20 bg-slate-200 sticky top-0 z-10">
-                <div className="container flex items-center px-4 h-full m-auto">
-                    <div className="flex justify-between items-center m-auto h-full">
-                        <ul className="hidden md:flex gap-x-6 text-black">
-                            <li>
-                                <Link href="/">
-                                    <p>Home</p>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/recipe/recipeSearch">
-                                    <p>Search Recipes</p>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link href="/about">
-                                    <p>about</p>
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </>
+        <header className="bg-black sticky top-0 z-10">
+                <nav className="text-white flex flex-col gap-1 sm:flex-row sm:justify-between items-center pt-4 max-w-6xl m-auto">
+                    <h1 className="text-center whitespace-nowrap">
+                        <Link href="/">
+                            <p>Home</p>
+                        </Link>
+                    </h1>
+                    {/* <h1>
+                        <Link href="/recipe/''">
+                            <p>Search Recipes</p>
+                        </Link>
+                    </h1> */}
+                    {/* <h1>
+                        <Link href="/about">
+                            <p>about</p>
+                        </Link>
+                    </h1> */}
+                    <RecipeSearch/>
+                </nav>
+        </header>
     )
 }
 
