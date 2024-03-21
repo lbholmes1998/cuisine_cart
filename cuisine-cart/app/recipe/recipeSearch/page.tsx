@@ -3,9 +3,9 @@
 //pages/RecipeSearch.tsx
 import React, { useState, useEffect } from 'react';
 import axios, { AxiosResponse } from 'axios';
-import RecipeInformation from '../recipeInfo/page';
+import RecipeInformation from '../../components/RecipeInfo';
 import RootLayout from '@/app/layout';
-import Modal from '../../modal/modal';
+import Modal from '../../components/modal';
 import Image from 'next/image'
 import test from 'node:test';
 import dotenv from 'dotenv';

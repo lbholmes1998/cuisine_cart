@@ -1,7 +1,7 @@
 import React from "react";
 import RootLayout from "@/app/layout";
 
-// TODO - Fix all 'validateDOMNesting errors when opened
+// TODO - Fix 'validateDOMNesting errors when opened
 
 const Modal = ({ setIsOpen, props }: { setIsOpen: any; props: any }) => {
 

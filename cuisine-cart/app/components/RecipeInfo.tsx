@@ -4,8 +4,9 @@ import axios, { AxiosResponse } from 'axios';
 import RootLayout from '@/app/layout';
 
 // PASS RECIPE ID FROM RECIPESEARCH PAGE AS PROPS
-
 // USE PASSED IN PROPS TO SEND REQUEST FOR RECIPES INFO
+
+// TODO - CHANGE INTO A COMPONENT (call it RecipeInfo.tsx)
 
 interface IngredientItems {
     name: string,
