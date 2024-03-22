@@ -1,70 +1,23 @@
 //pages/RecipeInformation.tsx
 import React, { useState, useEffect } from 'react'
-import axios, { AxiosResponse } from 'axios';
-import RootLayout from '@/app/layout';
+import fetchRecipeInfo from '@/lib/fetchRecipeInfo';
+import { RecipeInfoResults } from '@/models/RecipeInfo';
 
-// PASS RECIPE ID FROM RECIPESEARCH PAGE AS PROPS
-// USE PASSED IN PROPS TO SEND REQUEST FOR RECIPES INFO
 
-// TODO - CHANGE INTO A COMPONENT (call it RecipeInfo.tsx)
-
-interface IngredientItems {
-    name: string,
-    measures: {
-        metric: {
-            amount: string,
-            unitLong: string
-        }
-    }
+type Props = {
+    recipeId: number
 }
 
-interface RecipeInfo {
-    id: string,
-    aggregateLikes: number,
-    diets: string,
-    title: string,
-    image: string,
-    servings: number,
-    summary: string,
-    extendedIngredients: {
-        [key: number]: IngredientItems
-    },
-    instructions: string
-}
+export default async function RecipeInfo({ recipeId }: Props) {
 
+    const recipeInfo: RecipeInfoResults | undefined = await fetchRecipeInfo(recipeId)
+    if (!recipeInfo) return <h2 className='m-4 text-2x1 font-bold'>Unable to load recipe info!</h2>
 
-interface RecipeProps {
-    recipeID: number
-}
-
-const RecipeInformation: React.FC<RecipeProps> = (props) => {
-    const [recipeInfo, setRecipeInfo] = useState<any>('null');  // Expect object in format of Recipe interface.
-
-    useEffect(() => {
-        const getRecipeInfo = async () => {
-            try {
-
-                // TODO - Abstract API code
-                const apiKey: string | undefined = process.env.NEXT_PUBLIC_SPOONACULAR_KEY;
-                if (!apiKey) {
-                    throw new Error('Spoonacular API key is not defined in environment variables.');
-                }
-                const response: AxiosResponse = await axios.get(`https://api.spoonacular.com/recipes/${props.recipeID}/information`, {
-                    headers: {'x-api-key': apiKey}
-                });
-                // Access response data
-                setRecipeInfo(response.data)
-            } catch (error) {
-                console.error(`Error searching for recipe: ${error}`)
-            }
-        }
-        getRecipeInfo()
-    }, [])
-
-    if (recipeInfo !== 'null') return (
+    return (
         <div>
+            <h1>{recipeInfo.title}</h1>
             <h2 className='font-bold mb-3'>No of likes: {recipeInfo.aggregateLikes}</h2>
-            <h2 className='font-bold mb-3'>Diet/s: {recipeInfo.diets}</h2>
+            {/* <h2 className='font-bold mb-3'>Diet/s: {recipeInfo.diets}</h2> */}
             <h1 className='text-xl font-bold mb-3'>Ingredients</h1>
             {recipeInfo.extendedIngredients.map((ingredient: any) =>
                 <div key={ingredient.name}>
@@ -77,5 +30,3 @@ const RecipeInformation: React.FC<RecipeProps> = (props) => {
         </div>
     )
 }
-
-export default RecipeInformation
