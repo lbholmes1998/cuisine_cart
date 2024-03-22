@@ -1,6 +1,6 @@
-//pages/RecipeSearch.tsx
-import RecipeGallery from "@/app/components/RecipeGallery";
+// Shows search results from ingredients / cuisine search
 
+import RecipeGallery from "@/app/components/RecipeGallery";
 
 // TODO - Eventually add online shopping list to users ingredients.
 
