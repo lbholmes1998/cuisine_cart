@@ -1,10 +1,7 @@
 'use client'
 
-//pages/RecipeSearch.tsx
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-
-// TODO - Split this page in two - have search form here, which then sends data to other comp to handle actual fetching code
 
 export default function RecipeSearch() {
 
