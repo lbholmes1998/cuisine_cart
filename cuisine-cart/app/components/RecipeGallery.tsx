@@ -1,53 +1,18 @@
 //pages/RecipeSearch.tsx
-import React, { useState, FormEvent } from 'react';
-import { useRouter } from 'next/router';
-
-import axios, { AxiosResponse } from 'axios';
-import RecipeInformation from './RecipeInfo';
-import RootLayout from '@/app/layout';
-import Modal from './modal';
+import React from 'react';
 import Image from 'next/image'
-import test from 'node:test';
 import fetchRecipes from '@/lib/fetchRecipes';
 import { RecipeResults } from '@/models/Recipes';
+import RecipeInfoButton from './RecipeInfoButton';
 
 
 type Props = {
-    recipeTopic? : string | undefined // union type
+    recipeTopic? : string | undefined, // union type
 }
 // TODO - Eventually add online shopping list to users ingredients.
 
 export default async function RecipeGallery({ recipeTopic }: Props) {
-
-
-    // TODO - Move recipe info logic + comp to separate file
-
-    // const [query, setQuery] = useState<string>('')
-    // const [results, setResults] = useState([]);  // Expect array in format of Recipe interface.
-    // const [selectedRecipe, setSelectedRecipe] = useState<number>()
-    // const [recipeTitle, setRecipeTitle] = useState<string>()
-    // const [isOpen, setIsOpen] = useState<boolean>(false)
-
-    // const [search, setSearch] = useState('');
-    // const router = useRouter();
-
-    // let recipeResults: any | undefined;
-
-
-    // const handleRecipeSelect = (event: React.MouseEvent<HTMLButtonElement>) => {
-    //     const recipeButton: HTMLButtonElement = event.currentTarget
-    //     let recipeID: number = +recipeButton.value
-    //     setIsOpen(true)
-    //     setSelectedRecipe(recipeID)
-    //     setRecipeTitle(recipeButton.id)
-    // }
-
-    // const renderRecipeInfo = () => {
-    //     if (selectedRecipe !== undefined) {
-    //         return <RecipeInformation recipeID={selectedRecipe} />
-    //     }
-    // }
-
+    
     const url = !recipeTopic 
         ? "https://api.spoonacular.com/recipes/complexSearch?query="
         : `https://api.spoonacular.com/recipes/complexSearch?query=${recipeTopic}`
@@ -61,7 +26,7 @@ export default async function RecipeGallery({ recipeTopic }: Props) {
         <div className="container xl min-h-full m-auto">
             <div className="flex items-end justify-center p-4 text-center">
                 <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all p-8 min-w-full">
-                    <h1 className="bg-slate-100 max-w-sm text-center text-2xl mx-auto">Results for: {recipeTopic}</h1>
+                    { recipeTopic !== undefined ? <h1 className="bg-slate-100 max-w-sm text-center text-2xl mx-auto">Results for: {recipeTopic}</h1> : <h1>Random Recipes</h1>}
                     <div className='grid grid-cols-3' id='recipeCards'>
                         {recipes.results.map(recipe => (
                             <div key={recipe.title} className='mx-auto py-5'>
@@ -75,14 +40,13 @@ export default async function RecipeGallery({ recipeTopic }: Props) {
                                         alt="Picture of recipe"
                                     />
                                     {/* <p className='px-2 py-2'>Recipe Summary will go here</p> */}
-                                    {/* <button className='mx-auto justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50' key={`button_${recipe.id}`} id={recipe.title} value={recipe.id} onClick={handleRecipeSelect}>See Recipe Info</button> */}
+                                    <RecipeInfoButton recipeId={recipe.id}></RecipeInfoButton>
                                 </div>
                             </div>
                         ))}
                     </div>
                 </div>
             </div>
-            {/* {isOpen && <Modal setIsOpen={setIsOpen} props={{ recipeTitle: recipeTitle, recipeContent: renderRecipeInfo() }} />} */}
         </div>
     );
 }
