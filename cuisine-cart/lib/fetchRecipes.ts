@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
-import { RecipeResults } from '../models/Recipes';
-import { RecipeSchemaWithPhotos } from '../models/Recipes';
+import { RecipeResults } from '../models/Recipes'; // type
+import { RecipeSchemaWithPhotos } from '../models/Recipes'; // schema
 import env from './env';
 
 // This runs on server
@@ -22,7 +22,7 @@ const fetchRecipes = async (url: string):
         })
 
         const recipeResults: RecipeResults = response.data
-        console.log(recipeResults)
+
         // Parse data with Zod schema
         const parsedData = RecipeSchemaWithPhotos.parse(recipeResults)
 
@@ -36,17 +36,5 @@ const fetchRecipes = async (url: string):
     }
 }
 
-// export const fetchRecipeInfo = async (recipeID: string): Promise<any> => {
-//     try {
-//         const response: AxiosResponse = await axios.get(`https://api.spoonacular.com/recipes/${recipeID}/information`, {
-//             headers: { 'x-api-key': env.SPOONACULAR_API_KEY }
-//         });
-//         return response.data;
-//     } catch (error) {
-//         // Handle errors here
-//         console.error('Error fetching recipe information:', error);
-//         throw error;
-//     }
-// };
 
 export default fetchRecipes
