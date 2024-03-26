@@ -6,6 +6,7 @@ import fetchRandomRecipes from '@/lib/fetchRandomRecipes';
 import { RecipeResults } from '@/models/Recipes';  //type
 import { RandomRecipeResults } from '@/models/Recipes'; // type
 import RecipeInfoButton from './RecipeInfoButton';
+import ImgContainer from './ImgContainer';
 
 
 type Props = {
@@ -16,7 +17,7 @@ type Props = {
 export default async function RecipeGallery({ recipeTopic }: Props) {
 
     const recipeUrl = `https://api.spoonacular.com/recipes/complexSearch?query=${recipeTopic}&number=9`
-    const randomRecipeUrl = "https://api.spoonacular.com/recipes/random?number=3" // Fetch random recipes of page load
+    const randomRecipeUrl = "asdhttps://api.spoonacular.com/recipes/random?number=4" // Fetch random recipes of page load
 
     let recipes: RecipeResults | undefined;
     let randomRecipes: RandomRecipeResults | undefined;
@@ -34,37 +35,11 @@ export default async function RecipeGallery({ recipeTopic }: Props) {
                     <div className='grid gap-2 grid-cols-gallery' id='recipeCards'>
                         {recipeTopic !== undefined ? 
                             (recipes && recipes.results.map(recipe => (
-                                <div key={recipe.title} className='mx-auto py-5'>
-                                    <div className='w-80 h-96 bg-gray-200 px-1 py-2 rounded-xl'>
-                                        <h1 className={'py-1 text-xl text-center'} key={recipe.id}>{recipe.title}</h1>
-                                        <Image
-                                            className='py-4 mx-auto w-auto'
-                                            src={recipe.image}
-                                            width={200}
-                                            height={200}
-                                            alt="Picture of recipe"
-                                        />
-                                        {/* <p className='px-2 py-2'>Recipe Summary will go here</p> */}
-                                        <RecipeInfoButton recipeId={recipe.id}></RecipeInfoButton>
-                                    </div>
-                                </div>
+                                <ImgContainer recipeImage={recipe} />
                             )))
                             :
                             (randomRecipes && randomRecipes.recipes.map(recipe => (
-                                <div key={recipe.title} className='mx-auto py-5'>
-                                    <div className='w-80 h-96 bg-gray-200 px-1 py-2 rounded-md'>
-                                        <h1 className={'py-1 text-xl text-center'} key={recipe.id}>{recipe.title}</h1>
-                                        <Image
-                                            className='py-4 mx-auto w-auto'
-                                            src={recipe.image}
-                                            width={200}
-                                            height={200}
-                                            alt="Picture of recipe"
-                                        />
-                                        {/* <p className='px-2 py-2'>Recipe Summary will go here</p> */}
-                                        <RecipeInfoButton recipeId={recipe.id}></RecipeInfoButton>
-                                    </div>
-                                </div>
+                                <ImgContainer recipeImage={recipe} />
                             )))
                         }
                     </div>
