@@ -8,7 +8,7 @@ export default function Home() {
         <h2 className="text-center text-1xl">Welcome back [username]!</h2>
       </div>
 
-      <div id="Random Recipes" className="container mx-auto pt-5 text-2xl">
+      <div id="recipes" className="container mx-auto pt-5 text-2xl">
         <RecipeGallery />
       </div>
     </div>
