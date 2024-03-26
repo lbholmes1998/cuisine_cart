@@ -5,7 +5,8 @@ import RecipeSearch from "./components/RecipeSearch";
 const Navbar = () => {
 
     return (
-        <header className="bg-black sticky top-0 z-10">
+        <header className="bg-black sticky top-0 z-10 h-[75px] min-h-[65px]">
+
                 <nav className="text-white flex flex-col gap-1 sm:flex-row sm:justify-between items-center pt-4 max-w-6xl m-auto">
                     <h1 className="text-center whitespace-nowrap">
                         <Link href="/">
