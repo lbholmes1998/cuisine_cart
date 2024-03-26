@@ -17,7 +17,7 @@ type Props = {
 export default async function RecipeGallery({ recipeTopic }: Props) {
 
     const recipeUrl = `https://api.spoonacular.com/recipes/complexSearch?query=${recipeTopic}&number=9`
-    const randomRecipeUrl = "asdhttps://api.spoonacular.com/recipes/random?number=4" // Fetch random recipes of page load
+    const randomRecipeUrl = "https://api.spoonacular.com/recipes/random?number=4" // Fetch random recipes of page load
 
     let recipes: RecipeResults | undefined;
     let randomRecipes: RandomRecipeResults | undefined;
