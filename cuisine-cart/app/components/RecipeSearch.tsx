@@ -19,7 +19,7 @@ export default function RecipeSearch() {
         <form className='flex justify-center md:justify-between' 
         onSubmit={handleSubmit}>
             <input
-                className='px-1 rounded-sm shadow-md w-[260px]'
+                className="bg-white p-2 w-[260px] sm:w-80 text-xl rounded-xl text-black m-auto"
                 type="text"
                 placeholder="Meal or recipe name"
                 value={search}
