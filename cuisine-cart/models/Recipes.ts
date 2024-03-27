@@ -2,30 +2,41 @@ import { z } from 'zod'
 
 // TODO - Add support for pagination
 
+// I have commited many sins in this file, forgive me.
+
 
 // Basic recipe schema
 const BasicRecipeSchema = z.object({
-    "number": z.number(),
-    "offset": z.number(),
-    "totalResults": z.number(),
+    "number": z.number().optional(),
+    "offset": z.number().optional(),
+    "totalResults": z.number().optional(),
 })
 
-const BasicRandomRecipeSchema = z.object({})
-
-// Basic recipe info schema
+// Recipe Details schema
 const RecipeSchema = z.object({
     "id": z.number(),
     "title": z.string(),
     "image": z.string(),
-    "imageType": z.string(),
-})
+    "imageType": z.string().optional(),
+    "blurredDataUrl": z.string().optional(),  // Doesnt come from API - added manually
+}).transform(({image, ...rest}) => ({
+    // Edit incoming object key names
+    "url": image,
+    ...rest
+}))
+
+const BasicRandomRecipeSchema = z.object({})
 
 const RandomRecipeSchema = z.object({
     "id": z.number(),
     "title": z.string(),
     "image": z.string(),
     "imageType": z.string(),
-})
+}).transform(({image, ...rest}) => ({
+    // Edit incoming object key names
+    "url": image,
+    ...rest
+}))
 
 export const RecipeSchemaWithPhotos = BasicRecipeSchema.extend({
     results: z.array(RecipeSchema)
