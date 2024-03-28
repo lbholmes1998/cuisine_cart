@@ -11,8 +11,8 @@ export default function Home() {
       </div>
 
       <div id="recipes" className="container mx-auto pt-5 text-2xl">
-        {/* <RecipeGallery /> TODO - remember to uncomment this when done with dev*/}
-        <Gallery />
+        <RecipeGallery />
+        {/* <Gallery /> */}
       </div>
     </div>
   );

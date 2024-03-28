@@ -4,12 +4,19 @@ import { z } from 'zod'
 const BasicRecipeInfoSchema = z.object({
     "id": z.number(),
     "aggregateLikes": z.number(),
-    // "diets": z.string(),
     "title": z.string(),
     "image": z.string(),
     "servings": z.number(),
+    "pricePerServing": z.number(),
     "summary": z.string(),
-    "instructions": z.string()
+    "instructions": z.string(),
+    "dishTypes": z.array(z.string()),
+    "diets": z.array(z.string()),
+    "glutenFree": z.boolean(),
+    "vegan": z.boolean(),
+    "vegetarian": z.boolean(),
+    "creditsText": z.string()
+
 })
 
 // const DishTypesSchema = z.array()
