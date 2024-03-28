@@ -14,14 +14,15 @@ type Props = {
 
 export default function ImgContainer( {image}: Props ) {
     return (
-        <div className="bg-gray-200 h-[385px] rounded-xl">
+        <div className="bg-gray-200 h-[400px] rounded-xl">
             <h1 className='py-1 text-xl text-center' key={image.id}>{image.title}</h1>
             <div className="h-[300px] relative overflow-hidden">
                 <Image
                     className="m-auto object-cover group-hover:opacity-75"
                     src={image.url}
                     fill={true}
-                    sizes="(min-width: 1280px) 278px, (min-width: 1040px) calc(12.73vw + 118px), (min-width: 800px) 33.18vw, (min-width: 540px) 50vw, calc(100vw - 16px)"
+                    // width={"250"}
+                    // height={"250"}
                     alt="Picture of recipe"
                     // placeholder="blur"
                     // blurDataURL={image.blurredDataUrl}
