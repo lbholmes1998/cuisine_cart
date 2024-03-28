@@ -1,5 +1,5 @@
-import type { ImagesResults } from "@/models/Placeholder"
-import { ImagesSchemaWithPhotos } from "@/models/Placeholder"
+import type { ImagesResults } from "@/models/Images"
+import { ImagesSchemaWithPhotos } from "@/models/Images"
 import env from "./env"
 
 // Fetch placeholder images

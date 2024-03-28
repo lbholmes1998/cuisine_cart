@@ -19,6 +19,6 @@ export default function RecipeInfoButton({ recipeId }: Props) {
 
     return (
 
-        <button className='mx-auto justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50' onClick={handleClick}>More details</button>
+        <button className='ml-[111.5px] mt-[13.25px] justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50' onClick={handleClick}>More details</button>
     );
 }

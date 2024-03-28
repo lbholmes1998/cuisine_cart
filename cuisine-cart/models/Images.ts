@@ -1,5 +1,3 @@
-// Schema and type file for palceholder images
-
 import { z } from 'zod'
 
 const BasicImageSchema = z.object({
@@ -12,8 +10,6 @@ const BasicImageSchema = z.object({
 
 const PhotoSchema = z.object({
     id: z.number(),
-    title: z.string().optional(),
-    image: z.string().optional(),
     width: z.number(),
     height: z.number(),
     url: z.string(),
