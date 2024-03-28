@@ -33,7 +33,7 @@ export default async function RecipeGallery({ recipeTopic }: Props) {
 
     return (
         <section className="px-2 my-3 grid gap-2 grid-cols-gallery">
-            { recipeTopic !== undefined ? <h1 className="bg-slate-100 max-w-sm text-center text-2xl mx-auto">Results for: {recipeTopic}</h1> : <h1>Random Recipes</h1>}
+            {/* { recipeTopic !== undefined ? <h1 className="bg-slate-100 max-w-sm text-center text-2xl mx-auto">Results for: {recipeTopic}</h1> : <h1>Random Recipes</h1>} */}
                 {recipeTopic !== undefined ?
                     (recipes && recipes.results.map(recipe => (
                         <ImgContainer key={recipe.id} image={recipe} />
