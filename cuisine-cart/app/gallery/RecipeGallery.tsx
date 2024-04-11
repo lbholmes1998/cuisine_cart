@@ -3,8 +3,7 @@ import React from 'react';
 import fetchRecipes from '@/lib/fetchRecipes';
 import fetchRandomRecipes from '@/lib/fetchRandomRecipes';
 import { RecipeResults, RandomRecipeResults } from '@/models/Recipes';  //type
-import RecipeInfoButton from './RecipeInfoButton';
-import ImgContainer from './ImgContainer';
+import ImgContainer from '../components/ImgContainer';
 import addBlurredDataUrls from '@/lib/getBase64';
 
 
@@ -20,7 +19,7 @@ export default async function RecipeGallery({ recipeTopic }: Props) {
     // const placeHolderUrl = "https://images.unsplash.com/photo-1621961458348-f013d219b50c"
     
     const recipeUrl = `https://api.spoonacular.com/recipes/complexSearch?query=${recipeTopic}&number=9`
-    const randomRecipeUrl = "https://api.spoonacular.com/recipes/random?number=9" // Fetch random recipes of page load
+    const randomRecipeUrl = "234https://api.spoonacular.com/recipes/random?number=9" // Fetch random recipes of page load
 
     let recipes: RecipeResults | undefined;
     let randomRecipes: RandomRecipeResults | undefined;

@@ -1,8 +1,11 @@
+'use client'
+
 //pages/RecipeInformation.tsx
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import fetchRecipeInfo from '@/lib/fetchRecipeInfo';
 import { RecipeInfoResults, RecipeIngredients } from '@/models/RecipeInfo';  //types
 import type { Photo } from '@/models/Images';
+import { useRouter } from 'next/navigation';
 
 
 type Props = {
@@ -10,6 +13,8 @@ type Props = {
 }
 
 export default async function RecipeInfo({ recipeId }: Props) {
+    
+    const router = useRouter();
 
     const recipeInfo: RecipeInfoResults | undefined = await fetchRecipeInfo(recipeId)
     
@@ -33,6 +38,8 @@ export default async function RecipeInfo({ recipeId }: Props) {
                 <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
                         <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left ">
+                            
+                            <button onClick={() => {router.back()}}>Go Back</button>
                             
                             <section id='recipeHeaderInfo' className=''>
                                 <h1 id="modal-title" className="text-2xl text-center font-semibold text-gray-900 bg-slate-100">{recipeInfo.title}</h1>

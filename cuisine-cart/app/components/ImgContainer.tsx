@@ -1,12 +1,11 @@
 import type { Recipe } from "@/models/Recipes"; // type
 import type { Photo } from "@/models/Images";
-import RecipeInfoButton from './RecipeInfoButton';
+import RecipeInfoButton from '../recipe/info/RecipeInfoButton';
 import Image from 'next/image'
 
 
 
 // TODO - Have it so recipe name and 'more info' button appear when hovering over image
-// TODO - Remember to revert code back to supporting recipes when finished with dev!
 
 type Props = {
     image: Recipe

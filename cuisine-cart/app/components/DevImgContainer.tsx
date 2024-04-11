@@ -1,6 +1,6 @@
 import type { Photo } from "@/models/Images"
 import Image from "next/image"
-import RecipeInfoButton from './RecipeInfoButton';
+import RecipeInfoButton from '../recipe/info/RecipeInfoButton';
 
 type Props = {
     photo: Photo

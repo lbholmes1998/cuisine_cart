@@ -1,6 +1,6 @@
 // Shows search results from ingredients / cuisine search
 
-import RecipeGallery from "@/app/components/RecipeGallery";
+import RecipeGallery from "@/app/gallery/RecipeGallery";
 
 // TODO - Eventually add online shopping list to users ingredients.
 
@@ -17,7 +17,6 @@ export function generateMetadata({ params: {term}}: Props) {
 }
 
 export default function RecipeSearchResults({ params: {term}}: Props) {
-    console.log(term)
     return (
         <RecipeGallery recipeTopic={term}/>
     );

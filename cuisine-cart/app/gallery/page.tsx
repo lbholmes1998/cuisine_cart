@@ -1,3 +1,4 @@
+import RecipeGallery from "./RecipeGallery";
 
 export default function Home() {
   return (
@@ -8,8 +9,8 @@ export default function Home() {
         {/* <a className='mx-auto justify-center rounded-md bg-white px-3 py-1 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-slate-400' href="https://www.pexels.com">Photos provided by Pexels</a> */}
       </div>
 
-      <div id="landing" className="container mx-auto pt-5 text-2xl">
-        <h1>Landing page placeholder</h1>
+      <div id="recipes" className="container mx-auto pt-5 text-2xl">
+        <RecipeGallery />
       </div>
     </div>
   );

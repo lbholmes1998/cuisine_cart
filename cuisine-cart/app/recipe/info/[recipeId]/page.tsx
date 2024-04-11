@@ -1,6 +1,6 @@
 // Show information on a selected recipe
 
-import RecipeInfo from "@/app/components/RecipeInfo";
+import RecipeInfo from "@/app/recipe/info/[recipeId]/RecipeInfo";
 
 // TODO - Eventually add online shopping list to users ingredients.
 
