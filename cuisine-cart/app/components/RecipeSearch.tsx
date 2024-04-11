@@ -10,7 +10,7 @@ export default function RecipeSearch() {
 
     const handleSubmit = (e: FormEvent<HTMLElement>) => {
         e.preventDefault();
-        router.push(`/recipe/${search}`)
+        router.push(`/recipe/search/${search}`)
         setSearch('')
     }
 
