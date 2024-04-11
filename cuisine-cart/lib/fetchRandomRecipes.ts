@@ -26,9 +26,6 @@ const fetchRandomRecipes = async (url: string):
 
         // Parse data with Zod schema
         const parsedData = RandomRecipes.parse(recipeResults)
-
-        console.log(parsedData)
-
         if (!parsedData) return undefined
 
         return parsedData
