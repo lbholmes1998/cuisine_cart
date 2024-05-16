@@ -3,6 +3,7 @@ import "./globals.css";
 import Link from "next/link";
 import type { Metadata } from "next";
 import Navbar from "./Navbar";
+import { UserProvider } from "@auth0/nextjs-auth0/client";
 
 const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
@@ -14,12 +15,14 @@ export const metadata: Metadata = {
 export default function RootLayout({children,}: Readonly<{children: React.ReactNode;}>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <Navbar/>
-        <main className="max-width-6xl mx-auto px-6">
-            {children}
-        </main>
-      </body>
+      <UserProvider>
+        <body className={inter.className}>
+          <Navbar/>
+          <main className="max-width-6xl mx-auto px-6">
+              {children}
+          </main>
+        </body>
+      </UserProvider>
     </html>
   );
 }
