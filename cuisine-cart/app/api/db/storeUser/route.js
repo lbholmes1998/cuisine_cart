@@ -1,30 +1,11 @@
 import {NextResponse} from "next/server"
 import clientPromise from "@/lib/mongodb";
 
-async function connectToDB() {
-    const client = await clientPromise
-    return client.db("cuisine_cart")
-    
-}
-
-async function checkUserExists(email, db){
-    // Check if user already exists on the database
-    return await db.collection("users").findOne({ email });
-}
-
-async function addUser(email, username, db){
-    // Add new entry with users information
-    const user = await db.collection("users").insertOne({
-        email,
-        username,
-        isAdmin: false
-    })
-
-    return user
-}
-
 export const POST = async (req, res) => {
     try {
+        const client = await clientPromise
+        const db = await client.db("cuisine_cart")
+
         // Extract username and email from request body
         const { username, email } = await req.json()
 
@@ -32,18 +13,19 @@ export const POST = async (req, res) => {
         if (!username || !email) {
             throw new NextResponse('Username and email are required')
         }
-
-        // Connect to Mongo
-        const db = await connectToDB()
-
+        
         // Check if user already exists on the database.
-        const existingUser = await checkUserExists(email, db)
+        const existingUser = await db.collection("users").findOne({ email });
         
         // If user doesnt exist, add users info to database
         if(existingUser) {
             return new NextResponse({message: "User already exists on database"})
         } else {
-            const user = await addUser(email, username, db)
+            const user = await db.collection("users").insertOne({
+                email,
+                username,
+                isAdmin: false
+            })
             return new NextResponse({message: "User successfully added to database", userData: user})
         }
 
