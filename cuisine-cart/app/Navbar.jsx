@@ -38,13 +38,15 @@ export default function Navbar() {
                     <p>Home</p>
                 </Link>
                 <RecipeSearch />
-                <a href="/api/auth/login">
-                    <p>Login</p>
-                </a>
+                {!user && (
+                    <a href="/api/auth/login">
+                        <p>Login</p>
+                    </a>
+                )}
                 {user && (
                     <>
                         <p>Welcome {user.name}!</p>
-                        <Link href="/not-found">
+                        <Link href="/user">
                             <p>Account</p>
                         </Link>
                         <a href="/api/auth/logout">
