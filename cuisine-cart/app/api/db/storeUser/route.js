@@ -24,7 +24,7 @@ export const POST = async (req, res) => {
             const user = await db.collection("users").insertOne({
                 email,
                 userId,
-                savedRecipes: ["example"],
+                savedRecipes: [{"name": "foo", "url": "bar"}],
                 isAdmin: false
             })
             return new NextResponse({message: "User successfully added to database", userData: user})
