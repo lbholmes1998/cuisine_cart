@@ -4,30 +4,15 @@ import React, { useEffect } from "react";
 import Link from "next/link";
 import RecipeSearch from "./recipe/search/RecipeSearch";
 import { useUser } from '@auth0/nextjs-auth0/client';
-
+import addUserDataToDb
+ from "@/lib/db/addUser";
 export default function Navbar() {
     const { user, error } = useUser();
 
     useEffect(() => {
-        const addUserDataToDb = async () => {
-            try {
-                if (user) {
-                    const response = await fetch('/api/db/storeUser', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            username: user.name,
-                            email: user.email,
-                        })
-                    })
-                }
-            } catch (e) {
-                throw new Error("Error sending user info to server!", e)
-            }
-        }
-        addUserDataToDb()
+        // Execute add user function when user name changes
+        // Just realised this will eventually fail once username changes are implemented (future me's problem)
+        addUserDataToDb(user)
     }, [user?.name])
 
     return (
@@ -45,7 +30,7 @@ export default function Navbar() {
                 )}
                 {user && (
                     <>
-                        <p>Welcome {user.name}!</p>
+                        <p>Welcome {user.email}!</p>
                         <Link href="/user">
                             <p>Account</p>
                         </Link>

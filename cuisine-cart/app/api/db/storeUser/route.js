@@ -1,5 +1,5 @@
 import {NextResponse} from "next/server"
-import clientPromise from "@/lib/mongodb";
+import clientPromise from "@/lib/db/mongodb";
 
 export const POST = async (req, res) => {
     try {
@@ -7,11 +7,11 @@ export const POST = async (req, res) => {
         const db = await client.db("cuisine_cart")
 
         // Extract username and email from request body
-        const { username, email } = await req.json()
+        const { userId, email } = await req.json()
 
         // check if username and email are provided
-        if (!username || !email) {
-            throw new NextResponse('Username and email are required')
+        if (!userId || !email) {
+            throw new NextResponse('UserId and email are required')
         }
         
         // Check if user already exists on the database.
@@ -23,7 +23,8 @@ export const POST = async (req, res) => {
         } else {
             const user = await db.collection("users").insertOne({
                 email,
-                username,
+                userId,
+                savedRecipes: ["example"],
                 isAdmin: false
             })
             return new NextResponse({message: "User successfully added to database", userData: user})
