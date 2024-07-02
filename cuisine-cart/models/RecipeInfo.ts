@@ -6,7 +6,7 @@ const BasicRecipeInfoSchema = z.object({
     "aggregateLikes": z.number(),
     "title": z.string(),
     "image": z.string(),
-    "url": z.string(),
+    "url": z.string().optional(),
     "servings": z.number(),
     "pricePerServing": z.number(),
     "summary": z.string(),
