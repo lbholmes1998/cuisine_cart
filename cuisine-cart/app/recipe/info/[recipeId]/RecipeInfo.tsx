@@ -6,6 +6,7 @@ import fetchRecipeInfo from '@/lib/fetchRecipeInfo';
 import { RecipeInfoResults, RecipeIngredients } from '@/models/RecipeInfo';  //types
 import type { Photo } from '@/models/Images';
 import { useRouter } from 'next/navigation';
+import SaveRecipe from '@/lib/db/saveRecipe';
 
 
 type Props = {
@@ -13,6 +14,10 @@ type Props = {
 }
 
 export default async function RecipeInfo({ recipeId }: Props) {
+
+    const handleSave = () => {
+        SaveRecipe({url: recipeInfo?.url, name: recipeInfo?.title})
+    }
     
     const router = useRouter();
 
@@ -40,6 +45,8 @@ export default async function RecipeInfo({ recipeId }: Props) {
                         <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left ">
                             
                             <button onClick={() => {router.back()}}>Go Back</button>
+
+                            <button onClick={() => handleSave()}>Save Recipe</button>
                             
                             <section id='recipeHeaderInfo' className=''>
                                 <h1 id="modal-title" className="text-2xl text-center font-semibold text-gray-900 bg-slate-100">{recipeInfo.title}</h1>
