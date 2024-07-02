@@ -1,1 +1,4 @@
 
+So i dont forget:
+
+ADD MONGOOSE + REWRITE DB HANDLING CODE
