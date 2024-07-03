@@ -1,5 +1,4 @@
 import clientPromise from "./mongodb";
-import { getSession } from '@auth0/nextjs-auth0';
 import FetchUserInfo from "./fetchUserInfo";
 import { RecipeInfoResults} from '@/models/RecipeInfo';  //types
 
@@ -9,6 +8,7 @@ interface SavedRecipe {
     url: string | undefined,
     name: string | undefined
 }
+
 
 // export default async function SaveRecipe(recipeInfo: SavedRecipe) {
 //     const session = await getSession()
@@ -25,9 +25,7 @@ interface SavedRecipe {
 //     }
 // }
 
-export default async function addRecipeToDb(recipe:SavedRecipe) {
-    const session = await getSession()
-    const user = await session?.user
+export default async function addRecipeToDb(recipe:SavedRecipe, userEmail:string) {
     try {
         if (recipe) {
             const response = await fetch('/api/db/saveRecipe', {
@@ -36,7 +34,7 @@ export default async function addRecipeToDb(recipe:SavedRecipe) {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    email: user?.email,
+                    email: userEmail,
                     url: recipe.url,
                     name: recipe.name
                 })

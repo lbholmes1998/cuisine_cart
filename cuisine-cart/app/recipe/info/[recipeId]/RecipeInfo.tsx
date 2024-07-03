@@ -6,8 +6,8 @@ import fetchRecipeInfo from '@/lib/fetchRecipeInfo';
 import { RecipeInfoResults, RecipeIngredients } from '@/models/RecipeInfo';  //types
 import type { Photo } from '@/models/Images';
 import { useRouter } from 'next/navigation';
-import SaveRecipe from '@/lib/db/saveRecipe';
-
+import addRecipeToDb from '@/lib/db/saveRecipe';
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 type Props = {
     recipeId: number
@@ -15,10 +15,16 @@ type Props = {
 
 export default async function RecipeInfo({ recipeId }: Props) {
 
+    const { user, error } = useUser();
+
     const handleSave = () => {
-        SaveRecipe({url: recipeInfo?.url, name: recipeInfo?.title})
+        if (user?.email !== undefined) {
+            addRecipeToDb({url: recipeInfo?.url, name: recipeInfo?.title}, user!.email!)
+        } else {
+            console.log(user)
+        }
     }
-    
+
     const router = useRouter();
 
     const recipeInfo: RecipeInfoResults | undefined = await fetchRecipeInfo(recipeId)
@@ -46,7 +52,7 @@ export default async function RecipeInfo({ recipeId }: Props) {
                             
                             <button onClick={() => {router.back()}}>Go Back</button>
 
-                            <button onClick={() => handleSave()}>Save Recipe</button>
+                            {/* <button onClick={() => handleSave()}>Save Recipe</button> */}
                             
                             <section id='recipeHeaderInfo' className=''>
                                 <h1 id="modal-title" className="text-2xl text-center font-semibold text-gray-900 bg-slate-100">{recipeInfo.title}</h1>
